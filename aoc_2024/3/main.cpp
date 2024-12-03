@@ -15,7 +15,7 @@ int main(void) {
         static std::regex const number_regex(R"(\d+)");
         
         return std::transform_reduce(std::sregex_token_iterator(_string.cbegin(), _string.cend(), number_regex),
-                                     std::sregex_token_iterator(), 1, std::multiplies(), [](auto const _smatch) {
+                                     std::sregex_token_iterator(), 1, std::multiplies(), [](auto const& _smatch) {
             return std::stoi(_smatch.str());
         });
     };
@@ -24,7 +24,7 @@ int main(void) {
         static std::regex const mul_regex(R"(mul\(\d+,\d+\))");
         
         return std::transform_reduce(std::sregex_iterator(_mul_file.cbegin(), _mul_file.cend(), mul_regex),
-                                     std::sregex_iterator(), 0, std::plus(), [&](auto const _smatch){
+                                     std::sregex_iterator(), 0, std::plus(), [&](auto const& _smatch){
             return multiply(_smatch.str());
         });
     };
