@@ -12,7 +12,7 @@ int main(void) {
     
     auto const multiply = [](std::string const& _string)
     {
-        std::regex const number_regex(R"(\d+)");
+        static std::regex const number_regex(R"(\d+)");
         
         return std::transform_reduce(std::sregex_token_iterator(_string.cbegin(), _string.cend(), number_regex),
                                      std::sregex_token_iterator(), 1, std::multiplies(), [](auto const _smatch) {
