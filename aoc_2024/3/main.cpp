@@ -23,7 +23,8 @@ int main(void) {
     auto const add_multiplications = [&](std::string const& _mul_file){
         static std::regex const mul_regex(R"(mul\(\d+,\d+\))");
         
-        return std::transform_reduce(std::sregex_iterator(_mul_file.cbegin(), _mul_file.cend(), mul_regex), std::sregex_iterator(), 0, std::plus(), [&](auto const _smatch){
+        return std::transform_reduce(std::sregex_iterator(_mul_file.cbegin(), _mul_file.cend(), mul_regex),
+                                     std::sregex_iterator(), 0, std::plus(), [&](auto const _smatch){
             return multiply(_smatch.str());
         });
     };
