@@ -29,7 +29,7 @@ int main(void) {
         return std::ranges::adjacent_find(_range, [](auto const _left, auto const _right){
             auto const delta = std::abs(_left - _right);
             return delta > 3 or delta < 1;
-        }) == _range.end();
+        }) == std::ranges::end(_range);
     };
     
     auto const safe = [&](auto const& _report) {
@@ -46,13 +46,13 @@ int main(void) {
     std::cout << "Day 2 Part 1: " << safe_reports << std::endl;
 
     auto const dampened_safe_reports = std::transform_reduce(reports.cbegin(), reports.cend(), 0, std::plus(),
-    [&](decltype(reports)::value_type const& _report) {
+    [&](auto const& _report) {
         if(safe(_report))
             return true;
         
         auto const indices = std::views::iota(0) | std::views::take(_report.size());
         auto const alternative_safe = std::ranges::find_if(indices,
-                             [&](auto const _element){
+        [&](auto const _element){
             auto alternative_report = _report;
             alternative_report.erase(alternative_report.cbegin() + _element);
             return safe(alternative_report);

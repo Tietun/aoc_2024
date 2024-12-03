@@ -10,8 +10,7 @@ int main(void) {
     std::ifstream input(input_file);
     std::string const file(std::istreambuf_iterator(input), {});
     
-    auto const multiply = [](std::string const& _string)
-    {
+    auto const multiply = [](std::string const& _string) {
         static std::regex const number_regex(R"(\d+)");
         
         return std::transform_reduce(std::sregex_token_iterator(_string.cbegin(), _string.cend(), number_regex),
@@ -20,7 +19,7 @@ int main(void) {
         });
     };
     
-    auto const add_multiplications = [&](std::string const& _mul_file){
+    auto const add_multiplications = [&](std::string const& _mul_file) {
         static std::regex const mul_regex(R"(mul\(\d+,\d+\))");
         
         return std::transform_reduce(std::sregex_iterator(_mul_file.cbegin(), _mul_file.cend(), mul_regex),
